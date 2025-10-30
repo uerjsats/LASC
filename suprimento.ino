@@ -32,13 +32,12 @@ void setup() {
 
   // Inicializa ESC
   esc.attach(motorPin);
-  esc.writeMicroseconds(1000);
+  esc.writeMicroseconds(500);
   delay(10000);  // Tempo para o ESC inicializar
 
   // Inicializa sensores
   sensor1.begin();
   sensor2.begin();
-  sensor3.begin();
 
   if (!ina219.begin()) {
     Serial.println("Falha ao encontrar INA219!");
@@ -50,13 +49,19 @@ void setup() {
 
 void loop() {
   // ---------- Controle do ESC via Serial ----------
-  if (Serial.available() > 0) {
-    valorPotenciometroSimulado = Serial.parseInt();
-    if (valorPotenciometroSimulado >= 0 && valorPotenciometroSimulado <= 100) {
-      velocidadeMicrossegundos = map(valorPotenciometroSimulado, 0, 100, 1000, 2000);
-      esc.writeMicroseconds(velocidadeMicrossegundos);
-    }
-    while (Serial.available() > 0) Serial.read();  // Limpa buffer
+    // Acelera gradualmente
+
+  if (Serial.available() > 0) 
+  {
+      String comando = Serial.readStringUntil('\n');
+      if (comando == "1")
+      {
+          LigaEsc();
+      }
+      else if (comando == "2")
+      {
+          DesligaEsc();
+      }
   }
 
   // ---------- Leitura dos sensores ----------
@@ -64,16 +69,22 @@ void loop() {
   float current = ina219.getCurrent_mA();
   sensor1.requestTemperatures();
   sensor2.requestTemperatures();
-  sensor3.requestTemperatures();
   float temp1 = sensor1.getTempCByIndex(0);
   float temp2 = sensor2.getTempCByIndex(0);
-  float temp3 = sensor3.getTempCByIndex(0);
 
   // ---------- Envio Serial ----------
   Serial.print(temp1); Serial.print(":");
   Serial.print(temp2); Serial.print(":");
-  Serial.print(temp3); Serial.print(":");
   Serial.println(busVoltage);
 
   delay(2000);
+}
+
+void DesligaEsc()
+{
+  esc.writeMicroseconds(500);
+}
+void LigaEsc()
+{
+  esc.writeMicroseconds(1500);
 }
