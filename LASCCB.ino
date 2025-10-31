@@ -9,7 +9,7 @@
 #include "Arduino.h"
 #include "float16.h"
 
-#define RF_FREQUENCY 915000000 // Hz
+#define RF_FREQUENCY 913600000 // Hz
 #define TX_OUTPUT_POWER 20
 
 #define LORA_BANDWIDTH 0
@@ -295,10 +295,16 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssiValue, int8_t snr) {
     Radio.Sleep();
 
     if (strcmp(rxpacket, "1") == 0) {
-        cncSerial.println("$H");
+        cncSerial.printLn("$X");
+        //cncSerial.println("$H"); TEM QUE TROCAR AS CONFIGS 
         cncSerial.println("G92 X0 Y0 Z0");
+        delay(5000);
         cncSerial.println("G1 X5 F30");
+        delay(5000);
         cncSerial.println("G1 Y5 F30");
+        delay(5000);
+        Serial.println(1);
+        delay(1000);
         cncSerial.println("G1 Z2 F30");   
     }
 
