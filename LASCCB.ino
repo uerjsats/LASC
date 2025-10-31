@@ -303,10 +303,10 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssiValue, int8_t snr) {
         delay(5000);
         cncSerial.println("G1 Y5 F30");
         delay(5000);
-        Serial.println(1);
+        Serial.println("1");
         delay(1000);
         cncSerial.println("G1 Z-2 F30");
-        Serial.println(2);
+        Serial.println("2");
     }
 
     lora_idle = true;
