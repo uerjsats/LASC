@@ -9,7 +9,7 @@
 #include "Arduino.h"
 #include "float16.h"
 
-#define RF_FREQUENCY 913600000 // Hz
+#define RF_FREQUENCY 915000000 // Hz
 #define TX_OUTPUT_POWER 20
 
 #define LORA_BANDWIDTH 0
