@@ -295,19 +295,57 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssiValue, int8_t snr) {
     Radio.Sleep();
 
     if (strcmp(rxpacket, "1") == 0) {
-        cncSerial.println("$X");
+        cncSerial.println("$3=3");
+        cncSerial.println("$23=7");
+        cncSerial.println("$27=5");
+        cncSerial.println("$H");
         //cncSerial.println("$H"); TEM QUE TROCAR AS CONFIGS 
         //cncSerial.println("G92 X0 Y0 Z0");
-        delay(5000);
-        cncSerial.println("G1 X5 F30");
-        delay(5000);
-        cncSerial.println("G1 Y5 F30");
-        delay(5000);
+        //delay(5000);
+        //cncSerial.println("G1 X5 F30");
+        //delay(5000);
+        //cncSerial.println("G1 Y5 F30");
+        delay(120000);
         Serial.println("1");
-        delay(1000);
-        cncSerial.println("G1 Z-2 F30");
+        cncSerial.println("G1 Z4.5 F30");
+        cncSerial.println("G1 X50 F30");
+        cncSerial.println("G1 Y50 F30");
+        cncSerial.println("G1 Z0 F30");
+        cncSerial.println("G1 X0 F30");
+        cncSerial.println("G1 Y0 F30");
+        //delay();
+        //cncSerial.println("G1 Z2 F30");
+        //Serial.println("2");
+    }
+    else if(strcmp(rxpacket, "2") == 0) 
+    {
         Serial.println("2");
     }
+    else if(strcmp(rxpacket, "3") == 0)
+    {
+        cncSerial.println("$3=3");
+        cncSerial.println("$23=7");
+        cncSerial.println("$27=5");
+        cncSerial.println("$H");
+        delay(120000);
+        Serial.println("1");
+        cncSerial.println("G1 Y20 F30");
+        cncSerial.println("G1 Z4.5 F30");
+        cncSerial.println("G1 X50 F30");
+        cncSerial.println("G1 Y5 F30");
+        cncSerial.println("G1 Z0 F30");
+        cncSerial.println("G1 X0 F30");
+        cncSerial.println("G1 Y0 F30");
+    }
+    else if(strcmp(rxpacket, "4") == 0)
+    {
+        cncSerial.println("!");
+        delay(100);
+        cncSerial.println("0x18");
+        cncSerial.println("$H");
+    }
+
+
 
     lora_idle = true;
 }
