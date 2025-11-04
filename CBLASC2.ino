@@ -237,7 +237,7 @@ void loop() {
         
         // Escrita na EEPROM
         // Só irão ser escritos de 20 em 20 bytes, e irá cessar no máximo da memoria (1484 bytes)
-        if ((currentAddress <= 1480) && (dados.altitude >= 600.00)) {
+        if ((currentAddress <= 1480) && (dados.altitude >= 10.00)) {
 
           // float 4 bytes -> float 2 bytes
           eeprom.write(currentAddress, float16(dados.seconds)); currentAddress += 2;
