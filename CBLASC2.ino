@@ -216,8 +216,8 @@ void loop() {
         if (refPressure == 0) 
         {
             refPressure = dados.pressure;  
-            Serial.print("Pressão base calibrada: ");
-            Serial.println(refPressure);
+            //Serial.print("Pressão base calibrada: ");
+            //Serial.println(refPressure);
         }
 
         dados.altitude = bme.readAltitude(refPressure);
