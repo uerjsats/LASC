@@ -3,6 +3,7 @@
 #include <OneWire.h>
 #include <Adafruit_INA219.h>
 #include <Servo.h>
+#include <math.h>
 
 // ---------- DS18B20 ----------
 #define DS18B20_1_PIN 2
@@ -67,6 +68,7 @@ void loop() {
   // ---------- Leitura dos sensores ----------
   float busVoltage = ina219.getBusVoltage_V();
   float current = ina219.getCurrent_mA();
+  float current_mA_mod = fabs(current);
   sensor1.requestTemperatures();
   sensor2.requestTemperatures();
   float temp1 = sensor1.getTempCByIndex(0);
@@ -75,7 +77,8 @@ void loop() {
   // ---------- Envio Serial ----------
   Serial.print(temp1); Serial.print(":");
   Serial.print(temp2); Serial.print(":");
-  Serial.println(busVoltage);
+  Serial.print(busVoltage); Serial.print(":");
+  Serial.println(current_mA_mod);
 
   delay(2000);
 }
