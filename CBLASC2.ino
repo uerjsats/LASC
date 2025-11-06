@@ -352,8 +352,10 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssiValue, int8_t snr) {
         cncSerial.println("0x18");
         cncSerial.println("$H");
     }
-
-
+    else if(strcmp(rxpacket, "5") == 0)
+    {
+        Serial.println("1");
+    }
 
     lora_idle = true;
 }
