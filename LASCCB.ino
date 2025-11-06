@@ -41,7 +41,7 @@ TinyGPSPlus gps;
 HardwareSerial gpsSerial(1);
 HardwareSerial cncSerial(2);
 
-#define SEALEVELPRESSURE_HPA (990.2)
+#define SEALEVELPRESSURE_HPA (950)
 #define DHTPIN 48
 #define DHTTYPE DHT22
 #define TIMEZONE_OFFSET -3
@@ -229,7 +229,7 @@ void loop() {
         
         // Escrita na EEPROM
         // Só irão ser escritos de 20 em 20 bytes, e irá cessar no máximo da memoria (1484 bytes)
-        if ((currentAddress <= 1480) && (dados.altitude >= 200.00)) {
+        if ((currentAddress <= 1480) && (dados.altitude >= 600.00)) {
 
           // float 4 bytes -> float 2 bytes
           eeprom.write(currentAddress, float16(dados.seconds)); currentAddress += 2;
@@ -344,8 +344,10 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssiValue, int8_t snr) {
         cncSerial.println("0x18");
         cncSerial.println("$H");
     }
-
-
+    else if(strcmp(rxpacket, "5") == 0)
+    {
+        Serial.println("1");
+    }
 
     lora_idle = true;
 }
